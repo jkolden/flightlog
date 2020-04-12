@@ -22,6 +22,7 @@ import Home from "./pages/Home";
 import Settings from "./pages/Settings";
 import Analytics from "./pages/Analytics";
 import Flights from "./pages/Flights";
+import LogEntry from "./pages/LogEntry";
 import { UserProvider } from "./context/UserContext";
 
 const containerStyles = {
@@ -103,6 +104,7 @@ const App = () => {
                         <Route exact path="/" component={Home} />
                         <Route path="/login" component={LoginPage} />
                         <Route path="/flights" component={Flights} />
+                        <Route path="/log/:id" component={LogEntry} />
                         <Route path="/analytics" component={Analytics} />
                         <Route path="/settings" component={Settings} />
                       </Switch>

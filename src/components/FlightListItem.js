@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
@@ -6,6 +7,7 @@ import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import ListItemText from "@material-ui/core/ListItemText";
 import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
+import LogEntry from "../pages/LogEntry";
 
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
@@ -28,7 +30,7 @@ export default function Flights({ flight }) {
   const classes = useStyles();
 
   return (
-    <ListItem>
+    <ListItem divider>
       <ListItemAvatar>
         <Avatar>
           <CheckCircleIcon />
@@ -36,9 +38,11 @@ export default function Flights({ flight }) {
       </ListItemAvatar>
       <ListItemText primary={<FlightListEntry flight={flight} />} />
       <ListItemSecondaryAction>
-        <IconButton edge="end" aria-label="delete">
-          <ChevronRightIcon />
-        </IconButton>
+        <Link to={`/log/${flight.id}`}>
+          <IconButton edge="end" aria-label="delete">
+            <ChevronRightIcon />
+          </IconButton>
+        </Link>
       </ListItemSecondaryAction>
     </ListItem>
   );

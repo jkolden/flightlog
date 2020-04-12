@@ -5,9 +5,6 @@ import Typography from "@material-ui/core/Typography";
 import LongDateFormat from "../utilities/LongDateFormat";
 
 const useStyles = makeStyles((theme) => ({
-  depositContext: {
-    flex: 1,
-  },
   paper: {
     padding: theme.spacing(2),
     display: "flex",
@@ -34,11 +31,10 @@ export default function SummaryInfo() {
       <Grid container spacing={3}>
         <Grid item xs={12} md={4} lg={3}>
           <Paper className={classes.fixedHeightPaper}>
-            <Typography variant="h6" color="textSecondary">
+            <Typography variant="h6" color="textPrimary">
               Total Flight Hours
             </Typography>
             <Typography
-              variant="h6"
               color="textSecondary"
               className={classes.depositContext}
             >
