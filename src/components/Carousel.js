@@ -11,6 +11,8 @@ import CTButton from "../ct-components/CTButton";
 import Subject from "@material-ui/icons/Subject";
 import SummaryInfo from "./SummaryInfo";
 
+import Copyright from "../components/Copyright";
+
 import sectionStyle from "../assets/ct-styles/sectionStyle";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -49,7 +51,7 @@ function CarouselExample(props) {
     <Container maxWidth="lg">
       <Carousel>
         {items.map((item) => (
-          <Item item={item} />
+          <Item item={item} key={item.title} />
         ))}
       </Carousel>
 
