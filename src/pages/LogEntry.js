@@ -4,7 +4,9 @@ import { Grid, Paper, Container, Typography } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import flights from "../assets/static/flights";
 import Copyright from "../components/Copyright";
-
+import PilotType from "../form-components/PilotType";
+import FlightConditions from "../form-components/FlightConditions";
+import Signature from "../form-components/Signature";
 import CTButton from "../ct-components/CTButton";
 import TimerIcon from "@material-ui/icons/Timer";
 import {
@@ -31,6 +33,13 @@ const useStyles = makeStyles((theme) => ({
   fixedHeightPaper: {
     marginTop: "20",
     height: 300,
+    padding: theme.spacing(2),
+    display: "flex",
+    overflow: "auto",
+    flexDirection: "column",
+  },
+  paper: {
+    marginTop: "20",
     padding: theme.spacing(2),
     display: "flex",
     overflow: "auto",
@@ -157,6 +166,24 @@ export default function LogEntry() {
           </Grid>
         </Grid>
       </Container>
+      <Container>
+        <Grid container spacing={1}>
+          <Grid item xs={12} md={4} lg={3}>
+            <Paper className={classes.paper}>
+              <PilotType />
+            </Paper>
+          </Grid>
+        </Grid>
+      </Container>
+      <Container>
+        <Grid container spacing={1}>
+          <Grid item xs={12} md={4} lg={3}>
+            <Paper className={classes.paper}>
+              <FlightConditions />
+            </Paper>
+          </Grid>
+        </Grid>
+      </Container>
       <h2>Flight Summary</h2>
       <Container>
         <Grid container spacing={3} alignItems="center">
@@ -184,7 +211,7 @@ export default function LogEntry() {
               <TextField
                 id="actual-time"
                 label="Actual Flight Time"
-                value={`${Math.round((time.in - time.out) / 3600000)} + ${(
+                value={`${((time.in - time.out) / 3600000).toFixed(0)} + ${(
                   ((time.in - time.out) % 3600000) /
                   60000
                 ).toFixed(2)} `}
@@ -193,6 +220,19 @@ export default function LogEntry() {
                   shrink: true,
                 }}
               />
+            </Paper>
+          </Grid>
+        </Grid>
+      </Container>
+      <h2>Certify and Submit</h2>
+      <Container>
+        <Grid container spacing={3} alignItems="center">
+          <Grid item xs={12} md={4} lg={3}>
+            <Paper className={classes.fixedHeightPaper}>
+              <Signature />
+              <CTButton color="primary" size="lg">
+                Submit Log Entry
+              </CTButton>
             </Paper>
           </Grid>
         </Grid>

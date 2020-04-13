@@ -1,7 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 /* import mobiscroll */
-import { BottomNavigation, BottomNavigationAction } from "@material-ui/core";
+import {
+  BottomNavigation,
+  BottomNavigationAction,
+  Badge,
+} from "@material-ui/core";
 import "@mobiscroll/react-lite/dist/css/mobiscroll.min.css";
 
 /* Icons */
@@ -24,7 +28,11 @@ function BottomNav({ val, onChange }) {
         component={Link}
         to="/flights"
         label="Flights"
-        icon={<FlightIcon />}
+        icon={
+          <Badge badgeContent={2} color="secondary">
+            <FlightIcon />
+          </Badge>
+        }
       />
 
       <BottomNavigationAction
