@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 /* import mobiscroll */
 import {
@@ -6,9 +6,8 @@ import {
   BottomNavigationAction,
   Badge,
 } from "@material-ui/core";
-import "@mobiscroll/react-lite/dist/css/mobiscroll.min.css";
 
-/* Icons */
+import { FlightsContext } from "../context/FlightsContext";
 
 import Settings from "@material-ui/icons/Settings";
 import PieChartIcon from "@material-ui/icons/PieChart";
@@ -16,6 +15,7 @@ import Home from "@material-ui/icons/Home";
 import FlightIcon from "@material-ui/icons/Flight";
 
 function BottomNav({ val, onChange }) {
+  const { flights } = useContext(FlightsContext);
   return (
     <BottomNavigation value={val} onChange={(e, tab) => onChange(tab)}>
       <BottomNavigationAction
@@ -29,7 +29,7 @@ function BottomNav({ val, onChange }) {
         to="/flights"
         label="Flights"
         icon={
-          <Badge badgeContent={2} color="secondary">
+          <Badge badgeContent={flights.length} color="secondary">
             <FlightIcon />
           </Badge>
         }

@@ -23,8 +23,8 @@ import Settings from "./pages/Settings";
 import Analytics from "./pages/Analytics";
 import Flights from "./pages/Flights";
 import LogEntry from "./pages/LogEntry";
+import { FlightsProvider } from "./context/FlightsContext";
 import { UserProvider } from "./context/UserContext";
-
 const containerStyles = {
   height: "calc(100vh - 112px)",
   overflow: "auto",
@@ -81,42 +81,44 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <UserProvider>
-        <div>
-          <Grid container direction="column">
-            <TopNav
-              themeMode={themeMode}
-              lightMode={handleLightMode}
-              darkMode={handleDarkMode}
-            />
-
-            <div style={containerStyles}>
-              <Route
-                render={({ location }) => (
-                  <TransitionGroup>
-                    <CSSTransition
-                      mountOnEnter={false}
-                      unmountOnExit={true}
-                      timeout={1000}
-                      classNames="fade"
-                      key={location.key}
-                    >
-                      <Switch location={location}>
-                        <Route exact path="/" component={Home} />
-                        <Route path="/login" component={LoginPage} />
-                        <Route path="/flights" component={Flights} />
-                        <Route path="/log/:id" component={LogEntry} />
-                        <Route path="/analytics" component={Analytics} />
-                        <Route path="/settings" component={Settings} />
-                      </Switch>
-                    </CSSTransition>
-                  </TransitionGroup>
-                )}
+        <FlightsProvider>
+          <div>
+            <Grid container direction="column">
+              <TopNav
+                themeMode={themeMode}
+                lightMode={handleLightMode}
+                darkMode={handleDarkMode}
               />
-            </div>
-            <BottomNav value={tab} onChange={setTab} />
-          </Grid>
-          <CssBaseline />
-        </div>
+
+              <div style={containerStyles}>
+                <Route
+                  render={({ location }) => (
+                    <TransitionGroup>
+                      <CSSTransition
+                        mountOnEnter={false}
+                        unmountOnExit={true}
+                        timeout={1000}
+                        classNames="fade"
+                        key={location.key}
+                      >
+                        <Switch location={location}>
+                          <Route exact path="/" component={Home} />
+                          <Route path="/login" component={LoginPage} />
+                          <Route path="/flights" component={Flights} />
+                          <Route path="/log/:id" component={LogEntry} />
+                          <Route path="/analytics" component={Analytics} />
+                          <Route path="/settings" component={Settings} />
+                        </Switch>
+                      </CSSTransition>
+                    </TransitionGroup>
+                  )}
+                />
+              </div>
+              <BottomNav value={tab} onChange={setTab} />
+            </Grid>
+            <CssBaseline />
+          </div>
+        </FlightsProvider>
       </UserProvider>
     </ThemeProvider>
   );

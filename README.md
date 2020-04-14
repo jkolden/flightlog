@@ -2,4 +2,4 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Flight Log React PWA
 
-<img src="https://user-images.githubusercontent.com/21246211/79070989-ead0b200-7c8d-11ea-80d9-44dc0110d6a9.png" height="500" />
+<img src="https://user-images.githubusercontent.com/21246211/79252395-61101880-7e36-11ea-831a-5debdd1e075d.png" height="500" />

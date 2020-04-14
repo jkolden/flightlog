@@ -17,13 +17,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const PilotType = () => {
+const PilotType = ({ handleChange }) => {
   const classes = useStyles();
 
   return (
     <FormControl className={classes.formControl}>
       <InputLabel htmlFor="pilot-type">Pilot Experience Type</InputLabel>
       <NativeSelect
+        onChange={handleChange("type")}
         fullWidth
         inputProps={{
           name: "pilot-type",
@@ -31,11 +32,11 @@ const PilotType = () => {
         }}
       >
         <option aria-label="None" value="" />
-        <option value={10}>Solo</option>
-        <option value={20}>Pilot in Command</option>
-        <option value={30}>Second in Command</option>
-        <option value={40}>Flight Simulator</option>
-        <option value={50}>Training Received</option>
+        <option value={"Solo"}>Solo</option>
+        <option value={"Pilot in Command"}>Pilot in Command</option>
+        <option value={"Second in Command"}>Second in Command</option>
+        <option value={"Flight Simulator"}>Flight Simulator</option>
+        <option value={"Training Received"}>Training Received</option>
       </NativeSelect>
       <FormHelperText></FormHelperText>
     </FormControl>

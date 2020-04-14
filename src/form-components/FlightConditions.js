@@ -41,7 +41,7 @@ export default function FlightConditions() {
   };
 
   return (
-    <FormGroup column>
+    <FormGroup>
       <FormLabel component="legend">Flight Conditions</FormLabel>
       <FormControlLabel
         control={

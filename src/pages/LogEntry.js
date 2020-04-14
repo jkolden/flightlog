@@ -1,20 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid, Paper, Container, Typography } from "@material-ui/core";
+import { FlightsContext } from "../context/FlightsContext";
 import TextField from "@material-ui/core/TextField";
-import flights from "../assets/static/flights";
-import Copyright from "../components/Copyright";
+
 import PilotType from "../form-components/PilotType";
 import FlightConditions from "../form-components/FlightConditions";
 import Signature from "../form-components/Signature";
 import CTButton from "../ct-components/CTButton";
 import TimerIcon from "@material-ui/icons/Timer";
-import {
-  MuiPickersUtilsProvider,
-  InlineDatePicker,
-  KeyboardTimePicker,
-} from "@material-ui/pickers";
-import DateFnsUtils from "@date-io/date-fns";
 
 import FlightTakeoffIcon from "@material-ui/icons/FlightTakeoff";
 import FlightLandIcon from "@material-ui/icons/FlightLand";
@@ -52,9 +47,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function LogEntry() {
+export default function LogEntry({ match }) {
   const [time, setTime] = useState({ in: "", out: "" });
+  const { flights, dispatch } = useContext(FlightsContext);
+  const [currentFlight, setCurrentFlight] = useState({});
+  const [entry, setEntry] = useState({});
   const classes = useStyles();
+  const history = useHistory();
+
+  useEffect(() => {
+    const flight = flights.filter((flight) => flight.id == match.params.id);
+    setCurrentFlight(flight[0]);
+  }, []);
 
   const zeroPad = (num, places) => String(num).padStart(places, "0");
 
@@ -70,43 +74,55 @@ export default function LogEntry() {
   const handleOutClick = () => {
     let localTime = new Date();
 
-    setTime({
-      ...time,
-      out: localTime,
-    });
+    setEntry((prev) => ({
+      ...prev,
+      actualOut: localTime,
+    }));
   };
 
   const handleInClick = () => {
     let localTime = new Date();
 
-    setTime({
-      ...time,
-      in: localTime,
+    setEntry({
+      ...entry,
+      actualIn: localTime,
     });
   };
 
   const handleOutChange = (e) => {
-    let currentDate = time.out;
+    let currentDate = entry.actualOut;
     let timeString = e.target.value;
     let data = timeString.split(":");
     currentDate.setUTCHours(data[0]);
     currentDate.setUTCMinutes(data[1]);
-    setTime({
-      ...time,
-      out: currentDate,
+    setEntry({
+      ...entry,
+      actualOut: currentDate,
+    });
+  };
+
+  const handleChange = (name) => (e) => {
+    setEntry({
+      ...entry,
+      [name]: e.target.value,
     });
   };
 
   const handleInChange = (e) => {
-    let currentDate = time.in;
+    let currentDate = entry.actualIn;
     let timeString = e.target.value;
     let data = timeString.split(":");
     currentDate.setUTCHours(data[0]);
     currentDate.setUTCMinutes(data[1]);
-    setTime({
-      ...time,
-      in: currentDate,
+    setEntry({
+      ...entry,
+      actualIn: currentDate,
     });
+  };
+
+  const handleSubmit = () => {
+    dispatch({ type: "post", payload: currentFlight });
+    history.push("/flights");
   };
 
   return (
@@ -117,14 +133,14 @@ export default function LogEntry() {
           <Grid item xs={6} md={4} lg={3}>
             <Paper className={classes.fixedHeightPaper}>
               <FlightTakeoffIcon fontSize="large" />
-              <h1>KDBQ</h1>
+              <h1>{currentFlight.from}</h1>
               <TextField
                 variant="outlined"
                 id="outTime"
                 label="UTC Out"
                 type="time"
                 onChange={handleOutChange}
-                value={formatTime(time.out)}
+                value={formatTime(entry.actualOut)}
                 className={classes.textField}
                 InputLabelProps={{
                   shrink: true,
@@ -142,14 +158,14 @@ export default function LogEntry() {
           <Grid item xs={6} md={4} lg={3}>
             <Paper className={classes.fixedHeightPaper}>
               <FlightLandIcon fontSize="large" />
-              <h1>KORD</h1>
+              <h1>{currentFlight.to}</h1>
               <TextField
                 variant="outlined"
                 id="inTime"
                 label="UTC In"
                 type="time"
                 onChange={handleInChange}
-                value={formatTime(time.in)}
+                value={formatTime(entry.actualIn)}
                 className={classes.textField}
                 InputLabelProps={{
                   shrink: true,
@@ -170,7 +186,7 @@ export default function LogEntry() {
         <Grid container spacing={1}>
           <Grid item xs={12} md={4} lg={3}>
             <Paper className={classes.paper}>
-              <PilotType />
+              <PilotType handleChange={handleChange} />
             </Paper>
           </Grid>
         </Grid>
@@ -230,7 +246,7 @@ export default function LogEntry() {
           <Grid item xs={12} md={4} lg={3}>
             <Paper className={classes.fixedHeightPaper}>
               <Signature />
-              <CTButton color="primary" size="lg">
+              <CTButton color="primary" size="lg" onClick={handleSubmit}>
                 Submit Log Entry
               </CTButton>
             </Paper>
