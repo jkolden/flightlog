@@ -1,8 +1,10 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
+import MiltaryFormat from "../utilities/MiltaryFormat";
+import DateFormat from "../utilities/DateFormat";
+import CalcFlightTime from "../utilities/CalcFlightTime";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -18,6 +20,16 @@ const useStyles = makeStyles((theme) => ({
 export default function FlightListEntry({ flight }) {
   const classes = useStyles();
 
+  let departure = flight.actualDeparture
+    ? flight.actualDeparture
+    : flight.scheduledDeparture;
+
+  let arrival = flight.actualArrival
+    ? flight.actualArrival
+    : flight.scheduledArrival;
+
+  let flightTime = CalcFlightTime(departure, arrival);
+
   return (
     <div className={classes.root}>
       <Grid container spacing={3}>
@@ -27,10 +39,14 @@ export default function FlightListEntry({ flight }) {
         </Grid>
         <Grid container item xs={4} direction="row" alignItems="stretch">
           <Grid item xs={12}>
-            <Typography variant="body2">{flight.departDate}</Typography>
+            <Typography variant="body2">
+              {DateFormat(flight.scheduledDeparture)}
+            </Typography>
           </Grid>
           <Grid item xs={12}>
-            <Typography variant="body2">{`${flight.departTime} - ${flight.arriveTime}`}</Typography>
+            <Typography variant="body2">{`${MiltaryFormat(
+              departure
+            )} - ${MiltaryFormat(arrival)}`}</Typography>
           </Grid>
           <Grid item xs={12}>
             <Typography variant="body2">{`${flight.flightTime} hrs`}</Typography>

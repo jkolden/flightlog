@@ -1,6 +1,6 @@
 import React from "react";
 import { withStyles } from "@material-ui/core/styles";
-import { green } from "@material-ui/core/colors";
+import { green, blue, yellow } from "@material-ui/core/colors";
 import FormGroup from "@material-ui/core/FormGroup";
 import FormLabel from "@material-ui/core/FormLabel";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
@@ -20,9 +20,29 @@ import {
 
 const GreenCheckbox = withStyles({
   root: {
-    color: green[100],
+    color: "default",
     "&$checked": {
       color: green[500],
+    },
+  },
+  checked: {},
+})((props) => <Checkbox color="default" {...props} />);
+
+const BlueCheckbox = withStyles({
+  root: {
+    color: "default",
+    "&$checked": {
+      color: blue[500],
+    },
+  },
+  checked: {},
+})((props) => <Checkbox color="default" {...props} />);
+
+const YellowCheckbox = withStyles({
+  root: {
+    color: "default",
+    "&$checked": {
+      color: yellow[700],
     },
   },
   checked: {},
@@ -45,7 +65,7 @@ export default function FlightConditions() {
       <FormLabel component="legend">Flight Conditions</FormLabel>
       <FormControlLabel
         control={
-          <GreenCheckbox
+          <YellowCheckbox
             icon={<WbSunnyIcon />}
             checkedIcon={<WbSunnyIcon />}
             name="checkedG"
@@ -56,7 +76,7 @@ export default function FlightConditions() {
       />
       <FormControlLabel
         control={
-          <GreenCheckbox
+          <BlueCheckbox
             icon={<Brightness2Icon />}
             checkedIcon={<Brightness2Icon />}
             name="checkedA"

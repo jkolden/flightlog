@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+
 /* import mobiscroll */
 import {
   BottomNavigation,
@@ -16,6 +17,7 @@ import FlightIcon from "@material-ui/icons/Flight";
 
 function BottomNav({ val, onChange }) {
   const { flights } = useContext(FlightsContext);
+  const openFlights = flights.filter((flight) => flight.status !== "complete");
   return (
     <BottomNavigation value={val} onChange={(e, tab) => onChange(tab)}>
       <BottomNavigationAction
@@ -29,7 +31,7 @@ function BottomNav({ val, onChange }) {
         to="/flights"
         label="Flights"
         icon={
-          <Badge badgeContent={flights.length} color="secondary">
+          <Badge badgeContent={openFlights.length} color="secondary">
             <FlightIcon />
           </Badge>
         }

@@ -3,13 +3,15 @@ import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
+import Avatar from "@material-ui/core/Avatar";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import ListItemText from "@material-ui/core/ListItemText";
 import IconButton from "@material-ui/core/IconButton";
 import { green } from "@material-ui/core/colors";
+import ScaleLoader from "react-spinners/ScaleLoader";
 
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import CheckCircleIcon from "@material-ui/icons/CheckCircle";
+import CheckIcon from "@material-ui/icons/Check";
 import FlightTakeoffIcon from "@material-ui/icons/FlightTakeoff";
 import FlightListEntry from "../components/FlightListEntry";
 
@@ -24,6 +26,10 @@ const useStyles = makeStyles((theme) => ({
   title: {
     margin: theme.spacing(4, 0, 2),
   },
+  green: {
+    color: theme.palette.getContrastText(green[300]),
+    backgroundColor: green[300],
+  },
 }));
 
 export default function Flights({ flight }) {
@@ -32,10 +38,16 @@ export default function Flights({ flight }) {
   return (
     <ListItem divider>
       <ListItemAvatar>
-        {flight.status === "complete" ? (
-          <CheckCircleIcon style={{ color: green[500] }} />
+        {flight.status === "enroute" ? (
+          <ScaleLoader />
         ) : (
-          <FlightTakeoffIcon />
+          <Avatar className={flight.status == "complete" ? classes.green : ""}>
+            {flight.status === "complete" ? (
+              <CheckIcon />
+            ) : (
+              <FlightTakeoffIcon />
+            )}
+          </Avatar>
         )}
       </ListItemAvatar>
       <ListItemText primary={<FlightListEntry flight={flight} />} />

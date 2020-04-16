@@ -11,6 +11,11 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     maxWidth: 752,
   },
+  content: {
+    flexGrow: 1,
+    height: "100vh",
+    overflow: "auto",
+  },
   demo: {
     backgroundColor: theme.palette.background.paper,
   },
@@ -24,12 +29,14 @@ export default function Flights() {
   const { flights, dispatch } = useContext(FlightsContext);
 
   return (
-    <div className={classes.root}>
+    <main className={classes.content}>
+      <div className={classes.appBarSpacer} />
       <Grid container spacing={2}>
         <Grid item xs={12} md={6}>
           <Typography variant="h6" className={classes.title}>
             My Flights
           </Typography>
+
           <div className={classes.demo}>
             <List>
               {flights
@@ -43,6 +50,6 @@ export default function Flights() {
           </div>
         </Grid>
       </Grid>
-    </div>
+    </main>
   );
 }

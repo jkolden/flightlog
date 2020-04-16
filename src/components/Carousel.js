@@ -1,17 +1,14 @@
 import React from "react";
 import Carousel from "react-material-ui-carousel";
-import { Paper, Button, Typography, Grid, Container } from "@material-ui/core";
+import { Grid, Container } from "@material-ui/core";
 import image from "../assets/images/ross-parmly-rf6ywHVkrlY-unsplash.jpg";
 import image2 from "../assets/images/emiel-molenaar-JOrUKpuMOeU-unsplash.jpg";
 import image3 from "../assets/images/amarnath-tade-gXs-mwiXrhA-unsplash.jpg";
-import cnbc from "../assets/images/cnbc.svg";
 import CTCard from "../ct-components/Card/Card";
 import CTCardBody from "../ct-components/Card/CardBody";
 import CTButton from "../ct-components/CTButton";
 import Subject from "@material-ui/icons/Subject";
 import SummaryInfo from "./SummaryInfo";
-
-import Copyright from "../components/Copyright";
 
 import sectionStyle from "../assets/ct-styles/sectionStyle";
 import { makeStyles } from "@material-ui/core/styles";
@@ -40,7 +37,7 @@ function CarouselExample(props) {
       image: image3,
     },
     {
-      title: "New Training Requirements for Airline Pilots",
+      title: "New Training Requirements for Pilots",
       description:
         "Today’s aviation industry was impacted by an accident a decade ago.",
       image: image2,
