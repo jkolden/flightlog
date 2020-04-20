@@ -7,14 +7,8 @@ import FlightListItem from "../components/FlightListItem";
 import { FlightsContext } from "../context/FlightsContext";
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-    maxWidth: 752,
-  },
   content: {
     flexGrow: 1,
-    height: "100vh",
-    overflow: "auto",
   },
   demo: {
     backgroundColor: theme.palette.background.paper,

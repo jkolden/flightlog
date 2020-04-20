@@ -54,7 +54,6 @@ const useStyles = makeStyles((theme) => ({
 export default function LogEntry({ match }) {
   const { flights, dispatch } = useContext(FlightsContext);
   const [currentFlight, setCurrentFlight] = useState({});
-  const [showDetails, setShowDetails] = useState(false);
   const [entry, setEntry] = useState({ actualIn: "", actualOut: "" });
   const classes = useStyles();
   const history = useHistory();
@@ -81,21 +80,16 @@ export default function LogEntry({ match }) {
   };
 
   const handleOutClick = () => {
-    let localTime = new Date();
-
     setEntry((prev) => ({
       ...prev,
-      actualOut: localTime,
+      actualOut: new Date(),
     }));
   };
 
   const handleInClick = () => {
-    let localTime = new Date();
-    setShowDetails(true);
-
     setEntry({
       ...entry,
-      actualIn: localTime,
+      actualIn: new Date(),
     });
   };
 
@@ -119,7 +113,6 @@ export default function LogEntry({ match }) {
   };
 
   const handleInChange = (e) => {
-    setShowDetails(true);
     let actualIn = entry.actualIn;
     let timeString = e.target.value;
     let data = timeString.split(":");
@@ -216,47 +209,45 @@ export default function LogEntry({ match }) {
         </Grid>
       </Container>
 
-      {showDetails && (
-        <React.Fragment>
-          <Container>
-            <Grid container spacing={1}>
-              <Grid item xs={12} md={4} lg={3}>
-                <Paper className={classes.paper}>
-                  <PilotType handleChange={handleChange} />
-                </Paper>
-              </Grid>
+      <React.Fragment>
+        <Container>
+          <Grid container spacing={1}>
+            <Grid item xs={12} md={4} lg={3}>
+              <Paper className={classes.paper}>
+                <PilotType handleChange={handleChange} />
+              </Paper>
             </Grid>
-          </Container>
-          <Container>
-            <Grid container spacing={1}>
-              <Grid item xs={12} md={4} lg={3}>
-                <Paper className={classes.paper}>
-                  <FlightConditions />
-                </Paper>
-              </Grid>
+          </Grid>
+        </Container>
+        <Container>
+          <Grid container spacing={1}>
+            <Grid item xs={12} md={4} lg={3}>
+              <Paper className={classes.paper}>
+                <FlightConditions />
+              </Paper>
             </Grid>
-          </Container>
-          <FlightSummary entry={entry} />
-          <h2>Certify and Submit</h2>
-          <Container>
-            <Grid container spacing={3} alignItems="center">
-              <Grid item xs={12} md={4} lg={3}>
-                <Paper className={classes.fixedHeightPaper}>
-                  <Signature />
-                  <CTButton
-                    color="primary"
-                    size="lg"
-                    type="submit"
-                    onClick={handleSubmit}
-                  >
-                    Submit Log Entry
-                  </CTButton>
-                </Paper>
-              </Grid>
+          </Grid>
+        </Container>
+        <FlightSummary entry={entry} />
+        <h2>Certify and Submit</h2>
+        <Container>
+          <Grid container spacing={3} alignItems="center">
+            <Grid item xs={12} md={4} lg={3}>
+              <Paper className={classes.fixedHeightPaper}>
+                <Signature />
+                <CTButton
+                  color="primary"
+                  size="lg"
+                  type="submit"
+                  onClick={handleSubmit}
+                >
+                  Submit Log Entry
+                </CTButton>
+              </Paper>
             </Grid>
-          </Container>
-        </React.Fragment>
-      )}
+          </Grid>
+        </Container>
+      </React.Fragment>
     </div>
   );
 }

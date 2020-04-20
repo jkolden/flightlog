@@ -38,19 +38,13 @@ export default function FlightListEntry({ flight }) {
           <Typography>{`${flight.aircraftId}, ${flight.aircraftType}`}</Typography>
         </Grid>
         <Grid container item xs={4} direction="row" alignItems="stretch">
-          <Grid item xs={12}>
-            <Typography variant="body2">
-              {DateFormat(flight.scheduledDeparture)}
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography variant="body2">{`${MiltaryFormat(
-              departure
-            )} - ${MiltaryFormat(arrival)}`}</Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography variant="body2">{`${flight.flightTime} hrs`}</Typography>
-          </Grid>
+          <Typography variant="body2">
+            {DateFormat(flight.scheduledDeparture)}
+          </Typography>
+          <Typography variant="body2">{`${MiltaryFormat(
+            departure
+          )} - ${MiltaryFormat(arrival)}`}</Typography>
+          <Typography variant="body2">{`${flight.flightTime} hrs`}</Typography>
         </Grid>
       </Grid>
     </div>

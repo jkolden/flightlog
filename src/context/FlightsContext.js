@@ -54,12 +54,12 @@ const reducer = (state, action) => {
     (flight) => flight.id !== action.payload.id
   );
   switch (action.type) {
-    case "post":
-      action.payload.status = "complete";
-      filteredFlights.push(action.payload);
-      return filteredFlights;
     case "save":
       action.payload.status = "enroute";
+      filteredFlights.push(action.payload);
+      return filteredFlights;
+    case "post":
+      action.payload.status = "complete";
       filteredFlights.push(action.payload);
       return filteredFlights;
   }

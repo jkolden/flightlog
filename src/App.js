@@ -7,7 +7,6 @@ import {
   Route,
 } from "react-router-dom";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
-import mobiscroll from "@mobiscroll/react-lite";
 import "./App.css";
 
 import { Grid, CssBaseline, ThemeProvider } from "@material-ui/core";
@@ -49,11 +48,6 @@ const App = () => {
     if (themePreference) {
       //material ui theme
       setThemeMode(themePreference);
-      //mobiscroll theme
-      mobiscroll.settings = {
-        theme: "ios",
-        themeVariant: themePreference,
-      };
     }
   }, []);
 
@@ -61,21 +55,12 @@ const App = () => {
     document.querySelector("body").style.backgroundColor = "#fff";
     setThemeMode("light");
     localStorage.setItem("theme", "light");
-
-    mobiscroll.settings = {
-      theme: "ios",
-      themeVariant: "light",
-    };
   };
 
   const handleDarkMode = () => {
     document.querySelector("body").style.backgroundColor = "#111";
     setThemeMode("dark");
     localStorage.setItem("theme", "dark");
-    mobiscroll.settings = {
-      theme: "ios",
-      themeVariant: "dark",
-    };
   };
 
   return (
