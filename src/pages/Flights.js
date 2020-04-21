@@ -7,8 +7,11 @@ import FlightListItem from "../components/FlightListItem";
 import { FlightsContext } from "../context/FlightsContext";
 
 const useStyles = makeStyles((theme) => ({
+  appBarSpacer: theme.mixins.toolbar,
   content: {
     flexGrow: 1,
+    height: "calc(100vh - 112px)",
+    overflow: "auto",
   },
   demo: {
     backgroundColor: theme.palette.background.paper,
@@ -25,12 +28,11 @@ export default function Flights() {
   return (
     <main className={classes.content}>
       <div className={classes.appBarSpacer} />
+      <Typography variant="h5" gutterBottom>
+        My Flights
+      </Typography>
       <Grid container spacing={2}>
         <Grid item xs={12} md={6}>
-          <Typography variant="h6" className={classes.title}>
-            My Flights
-          </Typography>
-
           <div className={classes.demo}>
             <List>
               {flights

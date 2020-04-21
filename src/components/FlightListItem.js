@@ -11,6 +11,7 @@ import { green } from "@material-ui/core/colors";
 import ScaleLoader from "react-spinners/ScaleLoader";
 
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import SearchIcon from "@material-ui/icons/Search";
 import CheckIcon from "@material-ui/icons/Check";
 import FlightTakeoffIcon from "@material-ui/icons/FlightTakeoff";
 import FlightListEntry from "../components/FlightListEntry";
@@ -52,11 +53,19 @@ export default function Flights({ flight }) {
       </ListItemAvatar>
       <ListItemText primary={<FlightListEntry flight={flight} />} />
       <ListItemSecondaryAction>
-        <Link to={`/log/${flight.id}`}>
-          <IconButton edge="end" aria-label="delete">
-            {flight.status !== "complete" ? <ChevronRightIcon /> : ""}
-          </IconButton>
-        </Link>
+        {flight.status !== "complete" ? (
+          <Link to={`/log/${flight.id}`}>
+            <IconButton edge="end" aria-label="details">
+              <ChevronRightIcon />
+            </IconButton>
+          </Link>
+        ) : (
+          <Link to={`/flights/${flight.id}`}>
+            <IconButton edge="end" aria-label="view">
+              <SearchIcon />
+            </IconButton>
+          </Link>
+        )}
       </ListItemSecondaryAction>
     </ListItem>
   );

@@ -31,7 +31,7 @@ export default function FlightListEntry({ flight }) {
   let flightTime = CalcFlightTime(departure, arrival);
 
   return (
-    <div className={classes.root}>
+    <React.Fragment>
       <Grid container spacing={3}>
         <Grid item xs={8}>
           <Typography variant="h6">{`${flight.flightNumber} ${flight.from}-${flight.to}`}</Typography>
@@ -47,6 +47,6 @@ export default function FlightListEntry({ flight }) {
           <Typography variant="body2">{`${flight.flightTime} hrs`}</Typography>
         </Grid>
       </Grid>
-    </div>
+    </React.Fragment>
   );
 }

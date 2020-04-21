@@ -1,10 +1,14 @@
 import React from "react";
+import { useTheme } from "@material-ui/core/styles";
+
 import SignatureCanvas from "react-signature-canvas";
 
-const Signature = (props) => {
+const Signature = () => {
+  const theme = useTheme();
+
   return (
     <SignatureCanvas
-      penColor={"white"}
+      penColor={theme.palette.type == "light" ? "black" : "white"}
       canvasProps={{ width: 500, height: 200, className: "sigCanvas" }}
     />
   );

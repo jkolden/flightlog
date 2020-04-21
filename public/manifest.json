@@ -1,6 +1,6 @@
 {
   "short_name": "UAL Flight Log",
-  "name": "United Pilot Flight Log",
+  "name": "United Airlines Pilot Flight Log",
   "icons": [
     {
       "src": "favicon.ico",
@@ -8,12 +8,12 @@
       "type": "image/x-icon"
     },
     {
-      "src": "plane192.png",
+      "src": "Plane192.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "plane512.png",
+      "src": "Plane512.png",
       "type": "image/png",
       "sizes": "512x512"
     }

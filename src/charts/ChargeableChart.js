@@ -7,26 +7,26 @@ import {
   YAxis,
   ResponsiveContainer,
   Legend,
-  CartesianGrid
+  CartesianGrid,
 } from "recharts";
 import Typography from "@material-ui/core/Typography";
 
 const data = [
   {
     name: "January",
-    Chargeable: 120,
-    Internal: 40
+    PIC: 120,
+    SIC: 40,
   },
   {
     name: "February",
-    Chargeable: 150,
-    Internal: 10
+    PIC: 150,
+    SIC: 10,
   },
   {
     name: "March",
-    Chargeable: 150,
-    Internal: 30
-  }
+    PIC: 150,
+    SIC: 30,
+  },
 ];
 
 export default class ChargeableChart extends PureComponent {
@@ -34,7 +34,7 @@ export default class ChargeableChart extends PureComponent {
     return (
       <React.Fragment>
         <Typography component="h2" variant="h6" gutterBottom>
-          Chargeable Hours by Month
+          Flight Hours by Month
         </Typography>
         <ResponsiveContainer>
           <BarChart width={500} height={250} data={data}>
@@ -43,8 +43,8 @@ export default class ChargeableChart extends PureComponent {
             <YAxis />
             <Tooltip />
             <Legend />
-            <Bar dataKey="Chargeable" fill="#8884d8" />
-            <Bar dataKey="Internal" fill="#82ca9d" />
+            <Bar dataKey="PIC" fill="#8884d8" />
+            <Bar dataKey="SIC" fill="#82ca9d" />
           </BarChart>
         </ResponsiveContainer>
       </React.Fragment>

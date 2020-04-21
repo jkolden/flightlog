@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { EntriesContext } from "../EntriesContext";
+import { FlightsContext } from "../context/FlightsContext";
 import { useHistory } from "react-router-dom";
 import swal from "sweetalert";
 

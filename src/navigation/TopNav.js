@@ -16,9 +16,11 @@ import {
   Favorite,
   Brightness4,
   Brightness7,
+  ChevronLeft,
 } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
 import { UserContext } from "../context/UserContext";
+import { useHistory } from "react-router-dom";
 
 import emily from "../assets/images/emily.jpg";
 
@@ -51,13 +53,21 @@ export default function TopNav({ themeMode, lightMode, darkMode }) {
   const [open, setOpen] = useState(false);
   const [dialogueOpen, setDialogueOpen] = useState(false);
   const { user, setUser } = useContext(UserContext);
+  const history = useHistory();
 
   return (
     <AppBar position="static" thememode={themeMode}>
       <Toolbar>
-        <IconButton color="inherit" onClick={() => setOpen(!open)}>
-          <Menu />
-        </IconButton>
+        {history.location.pathname.substr(0, 9) === "/flights/" ? (
+          <IconButton color="inherit" onClick={() => history.goBack()}>
+            <ChevronLeft />
+          </IconButton>
+        ) : (
+          <IconButton color="inherit" onClick={() => setOpen(!open)}>
+            <Menu />
+          </IconButton>
+        )}
+
         <div style={{ flex: 12 }} />
         {themeMode === "light" ? (
           <IconButton color="inherit" onClick={darkMode}>

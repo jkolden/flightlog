@@ -5,15 +5,15 @@ import {
   Sector,
   Cell,
   ResponsiveContainer,
-  Legend
+  Legend,
 } from "recharts";
 import Typography from "@material-ui/core/Typography";
 
 const data = [
-  { name: "Internal Productivity", value: 400 },
-  { name: "Dixon Industries", value: 300 },
-  { name: "Milestone Billing", value: 300 },
-  { name: "Administration", value: 100 }
+  { name: "ERJ-140", value: 30 },
+  { name: "ERJ-145", value: 40 },
+  { name: "B738", value: 10 },
+  { name: "ERJ-175", value: 5 },
 ];
 const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
 
@@ -22,7 +22,7 @@ export default class Example extends PureComponent {
     return (
       <React.Fragment>
         <Typography component="h2" variant="h6" gutterBottom>
-          Year to Date by Project
+          Year to Date Summary By Aircraft Type
         </Typography>
         <ResponsiveContainer>
           <PieChart onMouseEnter={this.onPieEnter}>

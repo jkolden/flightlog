@@ -49,6 +49,7 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(0),
     marginBottom: theme.spacing(4),
   },
+  penColor: theme.secondary,
 }));
 
 export default function LogEntry({ match }) {
@@ -235,14 +236,13 @@ export default function LogEntry({ match }) {
             <Grid item xs={12} md={4} lg={3}>
               <Paper className={classes.fixedHeightPaper}>
                 <Signature />
-                <CTButton
+                <Button
+                  variant="contained"
                   color="primary"
-                  size="lg"
-                  type="submit"
                   onClick={handleSubmit}
                 >
-                  Submit Log Entry
-                </CTButton>
+                  Submit
+                </Button>
               </Paper>
             </Grid>
           </Grid>
