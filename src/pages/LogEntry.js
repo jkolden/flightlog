@@ -6,6 +6,11 @@ import { FlightsContext } from "../context/FlightsContext";
 import TextField from "@material-ui/core/TextField";
 
 import PilotType from "../form-components/PilotType";
+import SinglePilotTime from "../form-components/SinglePilotTime";
+import Takeoffs from "../form-components/Takeoffs";
+import Landings from "../form-components/Landings";
+import ConditionTime from "../form-components/ConditionTime";
+import PilotFunctionTime from "../form-components/PilotFunctionTime";
 import FlightConditions from "../form-components/FlightConditions";
 import Signature from "../form-components/Signature";
 import CTButton from "../ct-components/CTButton";
@@ -17,6 +22,7 @@ import LanguageIcon from "@material-ui/icons/Language";
 import IconButton from "@material-ui/core/IconButton";
 import Button from "@material-ui/core/Button";
 import FlightSummary from "../components/FlightSummary";
+import swal from "sweetalert";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -55,7 +61,13 @@ const useStyles = makeStyles((theme) => ({
 export default function LogEntry({ match }) {
   const { flights, dispatch } = useContext(FlightsContext);
   const [currentFlight, setCurrentFlight] = useState({});
-  const [entry, setEntry] = useState({ actualIn: "", actualOut: "" });
+  const [entry, setEntry] = useState({
+    actualIn: "",
+    actualOut: "",
+    singleEngine: "",
+    multiEngine: "",
+    multiPilot: "",
+  });
   const classes = useStyles();
   const history = useHistory();
 
@@ -95,7 +107,7 @@ export default function LogEntry({ match }) {
   };
 
   const handleOutChange = (e) => {
-    let actualOut = entry.actualOut;
+    let actualOut = entry.actualOut ? entry.actualOut : new Date();
     let timeString = e.target.value;
     let data = timeString.split(":");
     actualOut.setUTCHours(data[0]);
@@ -113,8 +125,15 @@ export default function LogEntry({ match }) {
     });
   };
 
+  const handleNumberChange = (name) => (e) => {
+    setEntry({
+      ...entry,
+      [name]: e.target.valueAsNumber,
+    });
+  };
+
   const handleInChange = (e) => {
-    let actualIn = entry.actualIn;
+    let actualIn = entry.actualIn ? entry.actualIn : new Date();
     let timeString = e.target.value;
     let data = timeString.split(":");
     actualIn.setUTCHours(data[0]);
@@ -125,13 +144,33 @@ export default function LogEntry({ match }) {
     });
   };
 
+  const sweetAlert = (e) => {
+    swal({
+      title: "Ready to submit this log entry?",
+      icon: "info",
+      buttons: ["Cancel", "Submit"],
+      dangerMode: false,
+    }).then((submitted) => {
+      if (submitted) {
+        handleSubmit(e);
+        swal("Thank you, your log has been submitted!", {
+          icon: "success",
+        });
+        history.push("/flights");
+      } else {
+        swal("OK, you can keep working on this log entry", {
+          icon: "info",
+        });
+      }
+    });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     currentFlight.actualDeparture = entry.actualOut;
     currentFlight.actualArrival = entry.actualIn;
 
     dispatch({ type: "post", payload: currentFlight });
-    history.push("/flights");
   };
 
   const handleSave = () => {
@@ -208,46 +247,27 @@ export default function LogEntry({ match }) {
             </Paper>
           </Grid>
         </Grid>
-      </Container>
 
-      <React.Fragment>
-        <Container>
-          <Grid container spacing={1}>
-            <Grid item xs={12} md={4} lg={3}>
-              <Paper className={classes.paper}>
-                <PilotType handleChange={handleChange} />
-              </Paper>
-            </Grid>
-          </Grid>
-        </Container>
-        <Container>
-          <Grid container spacing={1}>
-            <Grid item xs={12} md={4} lg={3}>
-              <Paper className={classes.paper}>
-                <FlightConditions />
-              </Paper>
-            </Grid>
-          </Grid>
-        </Container>
-        <FlightSummary entry={entry} />
+        <SinglePilotTime handleChange={handleNumberChange} entry={entry} />
+        <Takeoffs />
+        <Landings />
+        <ConditionTime />
+        <PilotFunctionTime />
+        <FlightConditions />
+
         <h2>Certify and Submit</h2>
-        <Container>
-          <Grid container spacing={3} alignItems="center">
-            <Grid item xs={12} md={4} lg={3}>
-              <Paper className={classes.fixedHeightPaper}>
-                <Signature />
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={handleSubmit}
-                >
-                  Submit
-                </Button>
-              </Paper>
-            </Grid>
+
+        <Grid container spacing={3} alignItems="center">
+          <Grid item xs={12} md={4} lg={3}>
+            <Paper className={classes.fixedHeightPaper}>
+              <Signature />
+              <Button variant="contained" color="primary" onClick={sweetAlert}>
+                Submit
+              </Button>
+            </Paper>
           </Grid>
-        </Container>
-      </React.Fragment>
+        </Grid>
+      </Container>
     </div>
   );
 }

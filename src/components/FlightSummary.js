@@ -44,38 +44,31 @@ export default function FlightSummary({ entry }) {
   return (
     <React.Fragment>
       <h2>Flight Summary</h2>
-      <Container>
-        <Grid container spacing={3} alignItems="center">
-          <Grid item xs={12} md={4} lg={3}>
-            <Paper className={classes.fixedHeightPaper}>
-              <TextField
-                id="actual-depart"
-                label="Local Depart Time"
-                className={classes.textField}
-                value={entry.actualOut}
-                InputLabelProps={{
-                  shrink: true,
-                }}
-              />
-              <TextField
-                id="actual-arrival"
-                label="Local Arrival Time"
-                className={classes.textField}
-                value={entry.actualIn}
-                InputLabelProps={{
-                  shrink: true,
-                }}
-              />
 
-              <TextField
-                id="actual-time"
-                label="Actual Flight Time"
-                value={CalcFlightTime(entry.actualOut, entry.actualIn)}
-              />
-            </Paper>
-          </Grid>
+      <Grid container spacing={3} alignItems="center">
+        <Grid item xs={12} md={4} lg={3}>
+          <Paper className={classes.fixedHeightPaper}>
+            <TextField
+              id="actual-depart"
+              label="Local Depart Time"
+              className={classes.textField}
+              value={entry.actualOut}
+              InputLabelProps={{
+                shrink: true,
+              }}
+            />
+            <TextField
+              id="actual-arrival"
+              label="Local Arrival Time"
+              className={classes.textField}
+              value={entry.actualIn}
+              InputLabelProps={{
+                shrink: true,
+              }}
+            />
+          </Paper>
         </Grid>
-      </Container>
+      </Grid>
     </React.Fragment>
   );
 }

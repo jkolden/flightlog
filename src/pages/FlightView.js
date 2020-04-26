@@ -58,7 +58,10 @@ export default function FlightView({ match }) {
                 id="sch-dep"
                 label="Scheduled UTC Departure"
                 className={classes.textField}
-                value={currentFlight.scheduledDeparture}
+                value={
+                  currentFlight.scheduledDeparture &&
+                  currentFlight.scheduledDeparture.toISOString()
+                }
                 InputLabelProps={{
                   shrink: true,
                   readOnly: true,
@@ -68,7 +71,10 @@ export default function FlightView({ match }) {
                 id="sch-arr"
                 label="Scheduled UTC Arrival"
                 className={classes.textField}
-                value={currentFlight.scheduledArrival}
+                value={
+                  currentFlight.scheduledArrival &&
+                  currentFlight.scheduledArrival.toISOString()
+                }
                 InputLabelProps={{
                   shrink: true,
                   readOnly: true,
